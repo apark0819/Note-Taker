@@ -1,31 +1,32 @@
 //Dependencies
+const PORT = process.env.PORT || 3001;
 const express = require("express");
 const path = require("path");
 const fs = require('fs');
 const total = require('./develop/db/db.json');
 //Setting up Express App
 const app = express();
-const PORT = process.env.PORT || 3000;
+
 
 //Setting up the data parsing for express.
-app.use(express.urlencoded({ extended: true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static('public'));
 
 //Routes
-app.get('/api/notes', (req, res) =>{
+app.get('/api/notes', (_req, res) =>{
     res.json(total.slice(1));
 });
 
-app.get('/', (req, res) => {
+app.get('/', (_req, res) => {
     res.sendFile(path.join(__dirname, './public/index.html'));
 });
 
-app.get('/notes', (req, res) => {
+app.get('/notes', (_req, res) => {
     res.sendFile(path.join(__dirname, './public/notes.html'));
 });
 
-app.get('*', (req, res) => {
+app.get('*', (_req, res) => {
     res.sendFile(path.join(__dirname, './public/index.html'));
 });
 
